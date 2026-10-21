@@ -9,7 +9,7 @@ export function Reveal({ children, className = "", delay = 0 }: { children: Reac
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) {
+        if (e?.isIntersecting) {
           el.classList.add("is-in");
           io.disconnect();
         }
@@ -200,7 +200,7 @@ export function StationMap({
   onSelect,
 }: {
   stations: Station[];
-  active?: string;
+  active?: string | undefined;
   onSelect?: (slug: string) => void;
 }) {
   return (
