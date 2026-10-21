@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { SimBadge } from "@/components/site";
+import { SimBadge, Steps } from "@/components/site";
 import { count, freeSlots, useDemo } from "@/lib/demo-store";
-import { Steps } from "./borrow";
 
 export const Route = createFileRoute("/return")({
   head: () => ({

@@ -249,3 +249,15 @@ export function StationMap({
     </div>
   );
 }
+
+export function Steps({ step, labels }: { step: number; labels: string[] }) {
+  return (
+    <ol className="flex flex-wrap gap-x-8 gap-y-2 border-b border-forest pb-4">
+      {labels.map((l, i) => (
+        <li key={l} className={`label ${i === step ? "text-electric" : i < step ? "text-forest" : "text-muted-foreground"}`}>
+          <span className="mr-2">{i < step ? "✓" : `0${i + 1}`}</span>{l}
+        </li>
+      ))}
+    </ol>
+  );
+}

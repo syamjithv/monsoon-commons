@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { SimBadge, UmbrellaGlyph } from "@/components/site";
+import { SimBadge, Steps, UmbrellaGlyph } from "@/components/site";
 import { count, useDemo } from "@/lib/demo-store";
 
 export const Route = createFileRoute("/borrow")({
@@ -17,17 +17,6 @@ export const Route = createFileRoute("/borrow")({
   component: Borrow,
 });
 
-export function Steps({ step, labels }: { step: number; labels: string[] }) {
-  return (
-    <ol className="flex flex-wrap gap-x-8 gap-y-2 border-b border-forest pb-4">
-      {labels.map((l, i) => (
-        <li key={l} className={`label ${i === step ? "text-electric" : i < step ? "text-forest" : "text-muted-foreground"}`}>
-          <span className="mr-2">{i < step ? "✓" : `0${i + 1}`}</span>{l}
-        </li>
-      ))}
-    </ol>
-  );
-}
 
 function Borrow() {
   const { station } = Route.useSearch();

@@ -10,12 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BorrowRouteImport } from './routes/borrow'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ImpactRouteImport } from './routes/impact'
+import { Route as ReturnRouteImport } from './routes/return'
+import { Route as StationsIndexRouteImport } from './routes/stations.index'
+import { Route as StationsIdRouteImport } from './routes/stations.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BorrowRoute = BorrowRouteImport.update({
+  id: '/borrow',
+  path: '/borrow',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -28,35 +37,88 @@ const ImpactRoute = ImpactRouteImport.update({
   path: '/impact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReturnRoute = ReturnRouteImport.update({
+  id: '/return',
+  path: '/return',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StationsIndexRoute = StationsIndexRouteImport.update({
+  id: '/stations/',
+  path: '/stations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StationsIdRoute = StationsIdRouteImport.update({
+  id: '/stations/$id',
+  path: '/stations/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/borrow': typeof BorrowRoute
   '/how-it-works': typeof HowItWorksRoute
   '/impact': typeof ImpactRoute
+  '/return': typeof ReturnRoute
+  '/stations/$id': typeof StationsIdRoute
+  '/stations/': typeof StationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/borrow': typeof BorrowRoute
   '/how-it-works': typeof HowItWorksRoute
   '/impact': typeof ImpactRoute
+  '/return': typeof ReturnRoute
+  '/stations/$id': typeof StationsIdRoute
+  '/stations': typeof StationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/borrow': typeof BorrowRoute
   '/how-it-works': typeof HowItWorksRoute
   '/impact': typeof ImpactRoute
+  '/return': typeof ReturnRoute
+  '/stations/$id': typeof StationsIdRoute
+  '/stations/': typeof StationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/how-it-works' | '/impact'
+  fullPaths:
+    | '/'
+    | '/borrow'
+    | '/how-it-works'
+    | '/impact'
+    | '/return'
+    | '/stations/$id'
+    | '/stations/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/how-it-works' | '/impact'
-  id: '__root__' | '/' | '/how-it-works' | '/impact'
+  to:
+    | '/'
+    | '/borrow'
+    | '/how-it-works'
+    | '/impact'
+    | '/return'
+    | '/stations/$id'
+    | '/stations'
+  id:
+    | '__root__'
+    | '/'
+    | '/borrow'
+    | '/how-it-works'
+    | '/impact'
+    | '/return'
+    | '/stations/$id'
+    | '/stations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BorrowRoute: typeof BorrowRoute
   HowItWorksRoute: typeof HowItWorksRoute
   ImpactRoute: typeof ImpactRoute
+  ReturnRoute: typeof ReturnRoute
+  StationsIdRoute: typeof StationsIdRoute
+  StationsIndexRoute: typeof StationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/borrow': {
+      id: '/borrow'
+      path: '/borrow'
+      fullPath: '/borrow'
+      preLoaderRoute: typeof BorrowRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -82,13 +151,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImpactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/return': {
+      id: '/return'
+      path: '/return'
+      fullPath: '/return'
+      preLoaderRoute: typeof ReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stations/': {
+      id: '/stations/'
+      path: '/stations'
+      fullPath: '/stations/'
+      preLoaderRoute: typeof StationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stations/$id': {
+      id: '/stations/$id'
+      path: '/stations/$id'
+      fullPath: '/stations/$id'
+      preLoaderRoute: typeof StationsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BorrowRoute: BorrowRoute,
   HowItWorksRoute: HowItWorksRoute,
   ImpactRoute: ImpactRoute,
+  ReturnRoute: ReturnRoute,
+  StationsIdRoute: StationsIdRoute,
+  StationsIndexRoute: StationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
